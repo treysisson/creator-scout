@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     python3 \
     make \
     g++ \
+    sqlite3 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -12,12 +13,14 @@ WORKDIR /app
 # Copy backend package files
 COPY backend/package*.json ./
 
-# Install dependencies and rebuild sqlite3
+# Install dependencies
 RUN npm install
-RUN npm rebuild sqlite3
 
 # Copy backend source code
 COPY backend/ .
+
+# Create database directory
+RUN mkdir -p database
 
 # Build TypeScript
 RUN npm run build
