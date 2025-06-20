@@ -1,11 +1,14 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 export const config = {
     port: process.env.PORT || 3000,
-    dbPath: process.env.DB_PATH || path.join(__dirname, '../../database/creatorscout.db'),
+    supabase: {
+        url: process.env.SUPABASE_URL,
+        key: process.env.SUPABASE_SERVICE_KEY
+    },
     instagram: {
         clientId: process.env.INSTAGRAM_CLIENT_ID,
         clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
