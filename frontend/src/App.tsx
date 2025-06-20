@@ -5,7 +5,7 @@ import Header from './components/Header';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 font-sans">
+      <div className="min-h-screen bg-gray-50 font-body">
         <Header />
         <main>
           <Routes>

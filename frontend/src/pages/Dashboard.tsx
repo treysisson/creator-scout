@@ -42,8 +42,8 @@ const Dashboard = () => {
     if (isLoading) {
       return (
         <div className="text-center py-20">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
-          <p className="mt-4 text-gray-500">Searching for creators...</p>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+          <p className="mt-4 text-gray-600">Searching for creators...</p>
         </div>
       );
     }
@@ -86,16 +86,16 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-100">
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Creator Dashboard</h1>
-            <p className="text-sm text-gray-500 mt-1">Search for YouTube influencers to analyze their stats.</p>
+          <div className="mb-8 text-center">
+            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">Creator Dashboard</h1>
+            <p className="text-base text-gray-600 mt-2">Search for YouTube influencers to analyze their stats.</p>
           </div>
           
-          <div className="max-w-3xl mx-auto mb-8">
+          <div className="max-w-xl mx-auto mb-8">
             <SearchBar onSearch={handleSearch} isLoading={isLoading} />
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
             {renderContent()}
           </div>
         </div>
