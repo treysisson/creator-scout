@@ -3,7 +3,7 @@ import axios from 'axios';
 import SearchBar from '../components/SearchBar';
 import CreatorCard from '../components/CreatorCard';
 import Header from '../components/Header';
-import { Stat, Sparkles, AlertTriangle } from 'lucide-react';
+import { BarChart3, Sparkles, AlertTriangle } from 'lucide-react';
 // Ensure VITE_API_URL is set in your .env.local file
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 interface Creator {
@@ -77,7 +77,7 @@ const Dashboard = () => {
     }
     return (
       <div className="text-center py-20">
-        <Stat className="mx-auto h-12 w-12 text-gray-400" />
+        <BarChart3 className="mx-auto h-12 w-12 text-gray-400" />
         <h3 className="mt-2 text-lg font-medium text-gray-900">Find YouTube Creators</h3>
         <p className="mt-1 text-sm text-gray-500">Use the search bar above to get started.</p>
       </div>
