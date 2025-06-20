@@ -61,7 +61,7 @@ router.get('/instagram', async (req, res) => {
             console.error('Error storing search history:', error);
         }
 
-        res.json(creator);
+        res.json(creator ? [creator] : []);
     } catch (error) {
         console.error('Error in Instagram search:', error);
         res.status(500).json({ error: 'Internal server error' });

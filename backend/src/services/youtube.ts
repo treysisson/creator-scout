@@ -72,7 +72,9 @@ class YouTubeService {
 
             for (const channel of channels) {
                 const channelStats = await this.getChannelStats(channel.id.channelId);
-                if (channelStats) {
+                
+                // Ensure all stats are present before proceeding
+                if (channelStats && channelStats.subscriberCount && channelStats.videoCount && channelStats.viewCount) {
                     const creator: Creator = {
                         channel_id: channel.id.channelId,
                         channel_name: channel.snippet.title,
