@@ -2,6 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import SearchBar from '../components/SearchBar';
 import CreatorCard from '../components/CreatorCard';
+import Header from '../components/Header';
+import { Stat, Sparkles, AlertTriangle } from 'lucide-react';
 // Ensure VITE_API_URL is set in your .env.local file
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 interface Creator {
@@ -37,45 +39,69 @@ const Dashboard = () => {
       setIsLoading(false);
     }
   };
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-          Find Your Next <span className="text-indigo-600">Star Creator</span>
-        </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-500">
-          Unlock insights into YouTube creators. Search by channel name to get started.
-        </p>
-      </div>
-      <div className="max-w-2xl mx-auto">
-        <SearchBar onSearch={handleSearch} isLoading={isLoading} />
-      </div>
-      {error && (
-        <div className="mt-8 max-w-2xl mx-auto p-4 bg-red-100 text-red-700 rounded-lg text-center">
-          {error}
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="text-center py-20">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+          <p className="mt-4 text-gray-500">Searching for creators...</p>
         </div>
-      )}
-      <div className="mt-12">
-        {isLoading ? (
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
-            <p className="mt-2 text-gray-500">Searching for creators...</p>
-          </div>
-        ) : hasSearched && creators.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {creators.map((creator) => (
-              <CreatorCard key={creator.channel_id} creator={creator} />
-            ))}
-          </div>
-        ) : hasSearched && !error ? (
-          <div className="text-center py-12">
-            <h3 className="text-xl font-semibold text-gray-800">No Creators Found</h3>
-            <p className="mt-2 text-gray-500">
-              We couldn't find any creators matching your search. Try a different name.
-            </p>
-          </div>
-        ) : null}
+      );
+    }
+    if (error) {
+      return (
+        <div className="text-center py-20 bg-red-50 rounded-lg">
+          <AlertTriangle className="mx-auto h-12 w-12 text-red-400" />
+          <h3 className="mt-2 text-lg font-medium text-red-800">Search Error</h3>
+          <p className="mt-1 text-sm text-red-700">{error}</p>
+        </div>
+      );
+    }
+    if (hasSearched && creators.length === 0) {
+      return (
+        <div className="text-center py-20">
+          <Sparkles className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-lg font-medium text-gray-900">No Creators Found</h3>
+          <p className="mt-1 text-sm text-gray-500">We couldn't find any creators matching your search. Try another name.</p>
+        </div>
+      );
+    }
+    if (creators.length > 0) {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {creators.map((creator) => (
+            <CreatorCard key={creator.channel_id} creator={creator} />
+          ))}
+        </div>
+      );
+    }
+    return (
+      <div className="text-center py-20">
+        <Stat className="mx-auto h-12 w-12 text-gray-400" />
+        <h3 className="mt-2 text-lg font-medium text-gray-900">Find YouTube Creators</h3>
+        <p className="mt-1 text-sm text-gray-500">Use the search bar above to get started.</p>
       </div>
+    );
+  };
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <Header />
+      <main className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Creator Dashboard</h1>
+            <p className="text-sm text-gray-500 mt-1">Search for YouTube influencers to analyze their stats.</p>
+          </div>
+          
+          <div className="max-w-3xl mx-auto mb-8">
+            <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            {renderContent()}
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
