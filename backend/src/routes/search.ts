@@ -1,21 +1,26 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
+import { supabase } from '../config/supabase';
+import { catchAsync } from '../utils/catchAsync';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    const query = req.query.q;
-    // In a real application, you would use the query to search your database.
-    // For now, we'll return a mock result.
-    const mockResults = [
-        {
-            name: `Result for "${query}"`,
-            subscriberCount: '1M',
-            videoCount: '100',
-            viewCount: '100M',
-            thumbnailUrl: 'https://via.placeholder.com/150',
-        }
-    ]
-    res.json(mockResults);
-});
+router.get('/', catchAsync(async (req: Request, res: Response) => {
+    const query = req.query.q as string;
+
+    if (!query) {
+        return res.status(400).json({ error: 'Query parameter is required' });
+    }
+
+    const { data, error } = await supabase
+        .from('creators')
+        .select('*')
+        .ilike('name', `%${query}%`);
+
+    if (error) {
+        throw error;
+    }
+
+    res.json(data);
+}));
 
 export default router; 
