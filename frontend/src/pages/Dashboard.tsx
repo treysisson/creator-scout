@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import CreatorCard from '../components/CreatorCard';
+import api from '../config/api';
 
 // This is a mock creator object for placeholder purposes
 const mockCreator = {
@@ -20,11 +21,16 @@ const Dashboard: React.FC = () => {
   const handleSearch = async () => {
     if (!query) return;
     setLoading(true);
-    // In the future, this will be replaced with an API call
-    setTimeout(() => {
-      setResults([mockCreator]);
+    try {
+      const response = await api.get(`/search?q=${query}`);
+      setResults(response.data);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      // For now, we'll just clear the results on error
+      setResults([]);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
