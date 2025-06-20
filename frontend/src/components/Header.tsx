@@ -21,8 +21,7 @@ const Header = () => {
                 Dashboard
               </Link>
             </nav>
-            <div className="ml-4 flex items-center md:ml-6">
-              {/* User profile section - can be expanded later */}
+            {/* <div className="ml-4 flex items-center md:ml-6">
               <div className="ml-3 relative">
                 <div>
                   <button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
@@ -35,7 +34,7 @@ const Header = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
