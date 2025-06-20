@@ -5,11 +5,12 @@ import Header from './components/Header';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-100 font-sans">
         <Header />
-        <main className="container mx-auto px-4 py-8">
+        <main>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            {/* You can add more routes here for other pages */}
           </Routes>
         </main>
       </div>
