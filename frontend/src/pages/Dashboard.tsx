@@ -2,7 +2,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import SearchBar from '../components/SearchBar';
 import CreatorCard from '../components/CreatorCard';
-import Header from '../components/Header';
 import { BarChart3, Sparkles, AlertTriangle } from 'lucide-react';
 // Ensure VITE_API_URL is set in your .env.local file
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -85,7 +84,6 @@ const Dashboard = () => {
   };
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header />
       <main className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
